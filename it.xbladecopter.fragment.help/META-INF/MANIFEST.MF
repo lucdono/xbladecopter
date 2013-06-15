@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Help
+Bundle-SymbolicName: it.xbladecopter.fragment.help;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: RCP & Embedded Solutions
+Fragment-Host: it.xbladecopter;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

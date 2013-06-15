@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: XBladeCopter Serial Communication
+Bundle-SymbolicName: it.xbladecopter.communication.serial;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: it.xbladecopter.comm.serial.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ it.xbladecopter;bundle-version="1.0.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-Vendor: RCP & Embedded Solutions
+Bundle-ClassPath: libs/RXTXcomm.jar,
+ .

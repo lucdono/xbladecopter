@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   	<extension
+         id="it.xbladecopter.telemetry.serial"
+         name="Serial Telemetry"
+         point="it.xbladecopter.extensions.com">
+      	
+      	<comm
+            class="it.xbladecopter.comm.serial.SerialDataManager"/>      
+   	</extension>
+
+	<extension
+		point="org.eclipse.ui.commands">
+
+		<category
+            name="Serial Communication"
+            id="serial.category">
+		</category>
+
+		<command
+			defaultHandler="it.xbladecopter.comm.serial.commands.ParametersHandler" 
+            name="Set Serial Parameters"
+            description="Setup serial port parameters"
+            categoryId="serial.category"
+            id="it.xbladecopter.serial.parameters">
+        </command>
+      	
+	</extension>
+
+	<extension
+		point="org.eclipse.ui.menus">
+      
+		<menuContribution
+			locationURI="menu:it.xbladecopter.windowsmenu">	
+			
+			<separator name="serial.menu.separator" visible="true"/>
+				
+			<command
+				commandId="it.xbladecopter.serial.parameters"
+				label="Connection Parameters" icon="icons/synced.gif">
+			</command>
+		</menuContribution>
+
+		<menuContribution
+			locationURI="toolbar:it.xbladecopter.toolbar?before=telemetry.disable">
+			<separator name="serial.toolbar.separator" visible="true"/>
+			<command
+				commandId="it.xbladecopter.serial.parameters"
+				label="Connection Parameters" icon="icons/synced.gif">
+			</command>
+			<separator name="serial.toolbar.separator1" visible="true"/>
+		</menuContribution>
+				
+		<menuContribution
+			locationURI="menu:it.xbladecopter.telemetrymenu?after=telemetry.disable">			
+           	<command 
+	            commandId="it.bladecopter.actions.TelemetryCommand" 
+	            label="Serial" 
+	            style="radio" mnemonic="S" 
+	            tooltip="Retrieve telemetry data from serial port."> 
+	         	<parameter 
+	               	name="org.eclipse.ui.commands.radioStateParameter" 
+	               	value="it.xbladecopter.telemetry.serial"/>  
+	      	</command>      	         	
+		</menuContribution>
+
+		<menuContribution
+			locationURI="toolbar:it.xbladecopter.toolbar?after=telemetry.disable">
+	      	<command 
+	            commandId="it.bladecopter.actions.TelemetryCommand" 
+	            label="Serial" 
+	            style="radio" mnemonic="S" 
+	            tooltip="Retrieve telemetry data from serial port."
+	            icon="icons/serial.gif"> 
+	         	<parameter 
+	               	name="org.eclipse.ui.commands.radioStateParameter" 
+	               	value="it.xbladecopter.telemetry.serial"/> 		        	
+	      	</command> 
+		</menuContribution>
+	</extension>
+	
+	<extension
+		point="org.eclipse.ui.bindings">
+		<key
+			sequence="Ctrl+A"
+			commandId="it.bladecopter.actions.TelemetryCommand"
+			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">	
+	        <parameter  
+	        	id="org.eclipse.ui.commands.radioStateParameter"
+	            value="it.xbladecopter.telemetry.serial"/> 	         
+		</key>
+	</extension>
+
+</plugin>

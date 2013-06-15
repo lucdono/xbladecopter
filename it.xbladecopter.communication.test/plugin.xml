@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   	<extension
+		point="org.eclipse.ui.menus">
+      
+		<menuContribution
+			locationURI="menu:it.xbladecopter.telemetrymenu?after=telemetry.disable">			
+           	<command 
+	            commandId="it.bladecopter.actions.TelemetryCommand" 
+	            label="Test" 
+	            style="radio" mnemonic="T" 
+	            tooltip="Use test data as telemetry data"> 
+	         	<parameter 
+	               	name="org.eclipse.ui.commands.radioStateParameter" 
+	               	value="it.xbladecopter.telemetry.test"/>  
+	      	</command>      	         	
+		</menuContribution>
+		
+		<menuContribution
+			locationURI="toolbar:it.xbladecopter.toolbar?after=telemetry.disable">
+	      	<command 
+	            commandId="it.bladecopter.actions.TelemetryCommand" 
+	            label="Test" 
+	            style="radio" mnemonic="T" 
+	            tooltip="Use test data as telemetry data"
+	            icon="icons/test.gif"> 
+	         	<parameter 
+	               	name="org.eclipse.ui.commands.radioStateParameter" 
+	               	value="it.xbladecopter.telemetry.test"/> 		        	
+	      	</command> 
+		</menuContribution>
+	</extension>
+	
+	<extension
+		point="org.eclipse.ui.bindings">
+		<key
+			sequence="Ctrl+T"
+			commandId="it.bladecopter.actions.TelemetryCommand"
+			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">	
+	        <parameter  
+	        	id="org.eclipse.ui.commands.radioStateParameter"
+	            value="it.xbladecopter.telemetry.test"/> 	         
+		</key>
+	</extension>
+ 	<extension
+       	id="it.xbladecopter.telemetry.test"
+       	name="Test Telemetry"
+       	point="it.xbladecopter.extensions.com">
+
+       	<comm
+       		class="it.xbladecopter.communication.test.TestDataGenerator" />
+ 	</extension>
+
+</plugin>
