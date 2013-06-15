@@ -1,0 +1,30 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: XBladeCopter Client
+Bundle-SymbolicName: it.xbladecopter;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: it.xbladecopter.Activator
+Bundle-Vendor: RCP & Embedded Solutions
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.ui.console,
+ org.eclipse.ui.intro;bundle-version="3.4.100",
+ org.eclipse.ui.intro;bundle-version="3.4.100",
+ org.eclipse.ui.intro.universal,
+ org.eclipse.ui.browser;bundle-version="3.3.100",
+ org.eclipse.help;bundle-version="3.5.100",
+ org.eclipse.help.base;bundle-version="3.6.1",
+ org.eclipse.help.ui;bundle-version="3.5.101",
+ org.eclipse.help.webapp;bundle-version="3.6.0",
+ org.eclipse.equinox.http.jetty;bundle-version="2.0.100",
+ org.eclipse.pde.runtime;bundle-version="3.4.300"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: .,
+ libs/lwjgl.jar,
+ libs/lwjgl_util.jar,
+ libs/org.swtchart_0.7.0.v20110128.jar,
+ libs/org.swtchart.ext_0.7.0.v20110128.jar,
+ libs/slick.jar
+Export-Package: it.xbladecopter.extensions,
+ it.xbladecopter.utils

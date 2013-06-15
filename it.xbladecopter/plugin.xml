@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="it.xbladecopter.extensions.com" name="Communication extension" schema="schema/it.xbladecopter.extensions.com.exsd"/>
+
+	<extension
+		id="it.xbladecopter.application"
+		point="org.eclipse.core.runtime.applications">
+		
+		<application>		
+			<run class="it.xbladecopter.Main"/>
+		</application>
+		
+	</extension>
+	
+	<extension
+		point="org.eclipse.ui.perspectives">
+
+		<perspective
+			name="Perspective"
+			class="it.xbladecopter.Perspective"
+			id="it.xbladecopter.perspective">
+		</perspective>
+	
+	</extension>
+
+	<extension
+		point="org.eclipse.ui.views">		
+		<category 
+           id="it.xbladecopter.view.category"
+           name="X-Blade Copter">
+        </category>
+        
+		<view		 
+        	class="it.xbladecopter.views.AHRS"
+        	icon="icons/download_16_hot.png"
+        	id="it.XBladeCopter.ahrs"
+        	name="Artificial Horizon"
+        	category="it.xbladecopter.view.category">
+		</view>
+		<view
+        	class="it.xbladecopter.views.Model3d"
+        	icon="icons/level_16_hot.png"
+        	id="it.XBladeCopter.Model3d"
+        	name="Drone 3D Model"
+        	category="it.xbladecopter.view.category">
+      	</view>
+      	<view
+             class="it.xbladecopter.views.Plotter"
+             icon="icons/confg_16_dis.png"
+             id="it.XBladeCopter.plotter"
+             name="Data Plotter"
+             category="it.xbladecopter.view.category">
+      	</view>
+      	<view
+             class="it.xbladecopter.views.Command"
+             icon="icons/gamesnext_16_hot.png"
+             id="it.XBladeCopter.command"
+             name="Command View"
+             category="it.xbladecopter.view.category">
+      	</view>
+      	<view
+             class="it.xbladecopter.views.Camera"
+             icon="icons/webcam_16_hot.png"
+             id="it.XBladeCopter.camera"
+             name="Camera"
+             category="it.xbladecopter.view.category">
+      	</view>
+      	<view
+             class="it.xbladecopter.views.Flight"
+             icon="icons/inf_16_hot.png"
+             id="it.XBladeCopter.flight"
+             name="Flight Data"
+             category="it.xbladecopter.view.category">
+      	</view>
+      	<view
+             class="it.xbladecopter.views.Uptime"
+             icon="icons/wait_16_hot.png"
+             id="it.XBladeCopter.uptime"
+             name="Uptime"
+             category="it.xbladecopter.view.category">
+      	</view>
+		<view
+        	class="it.xbladecopter.views.Maps"
+        	icon="icons/world_16_hot.png"
+        	id="it.XBladeCopter.maps"
+        	name="GPS Position"
+        	category="it.xbladecopter.view.category">
+		</view>
+   	</extension>
+   	
+	<extension
+		point="org.eclipse.ui.perspectiveExtensions">
+		
+		<perspectiveExtension targetID="*">
+			<view
+         		closeable="true"
+         		id="it.XBladeCopter.ahrs"
+         		minimized="false"
+         		moveable="true"
+         		ratio="0.25"
+         		relationship="left"
+         		relative="org.eclipse.ui.editorss"
+         		showTitle="true">
+         	</view>
+         	<view
+               closeable="true"
+               moveable="true"
+               minimized="false"
+               relative="org.eclipse.ui.editorss"
+               relationship="left"
+               id="it.XBladeCopter.Model3d">
+         	</view>
+         	<view
+               closeable="true"
+               moveable="true"
+               minimized="false"
+               relative="it.XBladeCopter.Model3d"
+               relationship="stack"
+               id="it.XBladeCopter.camera">
+         	</view>
+         	<view
+               closeable="true"
+               moveable="true"
+               minimized="false"
+               relative="it.XBladeCopter.ahrs"
+               relationship="bottom"
+               id="it.XBladeCopter.flight">
+         	</view>
+         	<view
+               closeable="true"
+               moveable="true"
+               minimized="false"
+               relative="it.XBladeCopter.Model3d"
+               relationship="bottom"
+               id="it.XBladeCopter.command">
+         	</view>
+         	<view
+               closeable="true"
+               moveable="true"
+               minimized="false"
+               relative="it.XBladeCopter.command"
+               relationship="stack"
+               id="it.XBladeCopter.maps">
+         	</view>
+         	<view
+               closeable="true"
+               minimized="false"
+               moveable="true"
+               relationship="stack"
+               relative="it.XBladeCopter.command"
+               id="org.eclipse.pde.runtime.LogView">
+         	</view>
+         	<view
+               closeable="true"
+               moveable="true"
+               minimized="false"
+               relative="it.XBladeCopter.command"
+               relationship="stack"
+               id="org.eclipse.ui.console.ConsoleView">
+         	</view>
+         	<view
+               closeable="true"
+               moveable="true"
+               minimized="false"
+               relative="it.XBladeCopter.Model3d"
+               relationship="right"
+               id="it.XBladeCopter.plotter"
+               ratio="0.5">
+         	</view>
+         	<view
+               closeable="true"
+               moveable="true"
+               minimized="false"
+               relative="it.XBladeCopter.command"
+               relationship="right"
+               id="it.XBladeCopter.uptime" 
+               ratio="0.82">
+         	</view>
+      	</perspectiveExtension>
+	</extension>
+   
+	<extension
+		point="org.eclipse.ui.commands">
+
+		<command 
+			defaultHandler="it.xbladecopter.actions.TelemetryHandler" 
+			id="it.bladecopter.actions.TelemetryCommand" 
+			name="Telemetry Command"> 
+			<commandParameter 
+		        id="org.eclipse.ui.commands.radioStateParameter" 
+		        name="state" 
+				optional="false"> 
+			</commandParameter> 
+			
+			<state 
+		        id="org.eclipse.ui.commands.radioState"> 
+				<class 
+					class="org.eclipse.ui.handlers.RadioState"> 
+					<parameter 
+						name="default" 
+		               	value="disable"> 
+		         	</parameter> 
+		         	<parameter 
+		               	name="persisted" 
+		               	value="false"> 
+		         	</parameter> 
+				</class> 
+			</state> 
+		</command>
+		
+		<category
+            name="Help"
+            id="help.category">
+		</category>
+		
+		<category
+            name="Window"
+            id="file.category">
+		</category>
+		
+		<command
+            name="Record"
+            description="Record telemetry data"
+            categoryId="file.category"
+            id="telemetry.save">
+      	</command>
+
+		<category
+            name="Window"
+            id="window.category">
+		</category>
+      	
+	</extension>
+      	
+   	<extension
+		point="org.eclipse.ui.menus">
+      
+		<menuContribution
+			locationURI="menu:org.eclipse.ui.main.menu">
+	
+			<menu
+				label="File"
+               	id="it.xbladecopter.filemenu">
+
+         		<command
+					commandId="telemetry.save" 
+					id="telemetry.save"
+					label="Record To..." icon="icons/saveas_edit.gif">
+            	</command>
+
+				<separator name="XBladeCopter.separator1" visible="true"/>
+         	
+         		<command
+					commandId="org.eclipse.ui.file.exit"
+					label="Exit">
+            	</command>
+         	</menu>
+         	<menu
+				label="Telemetry"
+				id="it.xbladecopter.telemetrymenu">
+         	
+			 <command 
+		            commandId="it.bladecopter.actions.TelemetryCommand" 
+		            id="telemetry.disable"
+		            label="Disable" 
+		            style="radio" mnemonic="D" tooltip="Disable telemetry"> 
+		         <parameter 
+		               name="org.eclipse.ui.commands.radioStateParameter" 
+		               value="disable"> 
+		         </parameter> 
+		      </command> 
+			</menu>
+			<menu
+				label="Window"
+				id="it.xbladecopter.windowsmenu">
+	
+				<separator name="XBladeCopter.separator2" visible="true"/>
+				<command
+					commandId="org.eclipse.ui.views.showView"
+					label="Show View">
+				</command>
+				<separator name="XBladeCopter.separator5" visible="true"/>
+				<command
+					commandId="org.eclipse.ui.window.customizePerspective"
+					label="Customize Perspective...">
+				</command>
+				<command
+					commandId="org.eclipse.ui.window.resetPerspective"
+					label="Reset Perspective...">
+				</command>
+				<command
+					commandId="org.eclipse.ui.window.preferences"
+					label="Preferences">
+				</command>
+			</menu>
+		</menuContribution>
+		<menuContribution
+			locationURI="toolbar:org.eclipse.ui.main.toolbar">
+		   <toolbar
+          	 	id="it.xbladecopter.toolbar"
+          		label="XBlade Copter Toolbar">
+
+         		<command
+					commandId="telemetry.save" 
+					id="telemetry.save"
+					label="Record To..." icon="icons/saveas_edit.gif">
+            	</command>
+
+				<separator name="XBladeCopter.separator1" visible="true"/>
+         	         	
+			 	<command 
+		            commandId="it.bladecopter.actions.TelemetryCommand" 
+		            label="Disable" 
+		            id="telemetry.disable"
+		            style="radio" mnemonic="D" tooltip="Disable telemetry"
+		            icon="icons/disable.gif"> 
+		         	<parameter 
+		            	name="org.eclipse.ui.commands.radioStateParameter" 
+		               	value="disable"> 
+		        	</parameter> 
+		      	</command> 
+     	    
+				<separator name="XBladeCopter.separator3" visible="true"/>
+
+				<command
+					commandId="org.eclipse.ui.help.helpContents"
+					label="Help Contents">
+				</command>
+
+		   </toolbar>
+		</menuContribution>
+	</extension>
+	
+	<extension
+		point="org.eclipse.ui.bindings">
+	
+		<key
+			sequence="Ctrl+D"
+			commandId="it.bladecopter.actions.TelemetryCommand"
+			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
+	         <parameter  
+	         		id="org.eclipse.ui.commands.radioStateParameter"
+	                value="disable"> 
+	         </parameter> 
+		</key>
+
+	</extension>
+		
+   	<extension
+		id="XBladeCopter.product"
+		point="org.eclipse.core.runtime.products">
+		
+		<product
+			application="XBladeCopter.application"
+            name="XBlade Control Panel"
+            description="XBlade Control Panel">
+        	
+ 			<property name="introBrandingImage" value="product:icons/games_48.png"/>
+		 	<property name="introTitle" value="X Blade Copter Overview"/>
+		 	<property name="introBrandingImageText" value="X Blade Copter">
+		 	</property>
+		 	<property
+		         name="appName"
+		         value="XBlade Control Panel">
+		   	</property>
+     <property
+           name="startupProgressRect"
+           value="5,255,445,15">
+     </property>
+     <property
+           name="preferenceCustomization"
+           value="plugin_customization.ini">
+     </property>
+     <property
+           name="startupForegroundColor"
+           value="B9CEFF">
+     </property>
+     <property
+           name="startupMessageRect"
+           value="7,275,348,20">
+     </property>
+     <property
+           name="aboutImage"
+           value="icons/splash.png">
+     </property>
+     <property
+           name="aboutText"
+           value="XBlade Control Panel v0.1&#x0A;Created by Luca D&apos;Onofrio&#x0A;Last update 26/06/2012">
+     </property>
+     <property
+           name="windowImages"
+           value="icons/games_16.gif,icons/games_32.gif,icons/games_48.png,icons/games_128.png">
+     </property>
+		</product>
+	</extension>
+    <extension
+          point="org.eclipse.ui.preferencePages">
+       <page
+             class="it.xbladecopter.preferences.BladeCopterPreferencePage"
+             id="it.xbladecopter.preferences.BladeCopterPreferencePage"
+             name="XBladeCopter">
+       </page>
+       <page
+             class="it.xbladecopter.preferences.PlotterPreferencePage"
+             id="it.xbladecopter.preferences.PlotterPreferencePage"
+             name="Plotter"
+             category="it.xbladecopter.preferences.BladeCopterPreferencePage">
+       </page>
+       <page
+             class="it.xbladecopter.preferences.CommandPreferencePage"
+             id="it.xbladecopter.preferences.CommandPreferencePage"
+             name="Command"
+             category="it.xbladecopter.preferences.BladeCopterPreferencePage">
+       </page>
+    </extension>
+    <extension
+          point="org.eclipse.core.runtime.preferences">
+       <initializer
+             class="it.xbladecopter.preferences.PreferenceInitializer">
+       </initializer>
+    </extension>
+   
+   
+      <extension
+         point="org.eclipse.ui.intro">
+      <introProductBinding
+            introId="org.eclipse.ui.intro.universal"
+            productId="it.xbladecopter.product">
+      </introProductBinding>
+   </extension>
+      <extension
+            id="product"
+            point="org.eclipse.core.runtime.products">
+         <product
+               application="it.xbladecopter.application"
+               name="XBlade Control Panel">
+            <property
+                  name="windowImages"
+                  value="icons/games_16.gif,icons/games_32.gif,icons/games_48.png,icons/games_64.png,icons/games_128.png">
+            </property>
+            <property
+                  name="aboutText"
+                  value="XBlade Control Panel v1.0&#x0A;Created by Luca D&apos;Onofrio&#x0A;&#x0A;E-Mail : lucdono@gmail.com&#x0A;&#x0A;Last update 26/06/2012">
+            </property>
+            <property
+                  name="aboutImage"
+                  value="icons/splash.png">
+            </property>
+            <property
+                  name="startupForegroundColor"
+                  value="B9CEFF">
+            </property>
+            <property
+                  name="startupProgressRect"
+                  value="5,255,445,15">
+            </property>
+            <property
+                  name="startupMessageRect"
+                  value="7,275,348,20">
+            </property>
+            <property
+                  name="appName"
+                  value="XBlade Control Panel">
+            </property>
+            <property
+                  name="preferenceCustomization"
+                  value="plugin_customization.ini">
+            </property>
+         </product>
+      </extension>
+   
+</plugin>
+

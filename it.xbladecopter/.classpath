@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="it/xbladecopter/threads/RPYThread.java|it/xbladecopter/views/CopyOfAHRS.java|it/bladecopter/actions/DisableTelemetryAction.java|it/bladecopter/actions/RadioTelemetryAction.java|it/bladecopter/actions/SerialTelemetryAction.java|it/bladecopter/actions/TestTelemetryAction.java|it/bladecopter/actions/AboutAction.java|it/xbladecopter/preferences/CopyOfPlotterPreferencePage.java|it/xbladecopter/data/TestDataGenerator.java" kind="src" path="src">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="XBladeCopter/libs"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="libs/lwjgl.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="XBladeCopter"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="libs/lwjgl_util.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="XBladeCopter/libs"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="libs/org.swtchart_0.7.0.v20110128.jar"/>
+	<classpathentry kind="lib" path="libs/org.swtchart.ext_0.7.0.v20110128.jar"/>
+	<classpathentry kind="lib" path="libs/slick.jar"/>
+	<classpathentry kind="lib" path="libs/gluegen-rt-natives-windows-i586.jar"/>
+	<classpathentry kind="lib" path="libs/gluegen-rt.jar"/>
+	<classpathentry kind="lib" path="libs/gluegen.jar"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
