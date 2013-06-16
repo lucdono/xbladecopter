@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="it.xbladecopter.communication.feature"
+      label="XBladeCopter Communication Feature"
+      version="1.0.0.qualifier"
+      provider-name="RCP &amp; Embedded Solutions"
+      plugin="it.xbladecopter"
+      os="win32"
+      ws="win32"
+      nl="en,en_GB,en_US,it,it_IT"
+      arch="x86">
+
+   <description url="http://www.example.com/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <url>
+      <update label="RCP &amp; Embedded Solutions Update Site" url="http://www.rcp-solutions.org/eclipse/xbladecopter"/>
+   </url>
+
+   <requires>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="it.xbladecopter" version="1.0.0" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="it.xbladecopter.communication.serial"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="it.xbladecopter.communication.test"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
