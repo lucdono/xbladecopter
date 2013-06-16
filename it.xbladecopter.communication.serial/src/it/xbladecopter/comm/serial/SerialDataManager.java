@@ -20,16 +20,17 @@
 
 package it.xbladecopter.comm.serial;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
 import it.xbladecopter.comm.utils.BytesDecode;
 import it.xbladecopter.comm.utils.CRC8;
 import it.xbladecopter.comm.utils.Protocol;
 import it.xbladecopter.extensions.AbstractXBladeCommunication;
 import it.xbladecopter.extensions.TelemetryData;
 import it.xbladecopter.utils.LogManager;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.concurrent.TimeUnit;
 
 public class SerialDataManager extends AbstractXBladeCommunication {
 	private LogManager logger = LogManager.getInstance();
@@ -40,8 +41,11 @@ public class SerialDataManager extends AbstractXBladeCommunication {
 	private SerialConnection instance;
 	private InputStream iStream;
 	private OutputStream oStream;
+
 	private static int WORD_SIZE = 4;
 	private static int COMMAND_SIZE = WORD_SIZE * 2 + 1;
+
+	private boolean readRadioResponse = false;
 
 	public SerialDataManager() {
 		this.instance = SerialConnection.getInstance();
@@ -55,6 +59,47 @@ public class SerialDataManager extends AbstractXBladeCommunication {
 			if (instance.isParameterSet() && instance.Connect()) {
 				iStream = instance.getSerialPort().getInputStream();
 				oStream = instance.getSerialPort().getOutputStream();
+
+				if (instance.isRadio()) {
+					readRadioResponse = true;
+					try {
+						Thread t = new Thread(new Runnable() {
+
+							@Override
+							public void run() {
+
+								while (readRadioResponse) {
+									try {
+										while (iStream.available() > 0) {
+
+											final byte[] bytes = new byte[iStream
+													.available()];
+											iStream.read(bytes);
+
+											logger.logDebug(
+													"ACOM Reply "
+															+ BytesDecode
+																	.getHex(bytes),
+													SerialDataManager.class);
+										}
+									} catch (IOException e) {
+										logger.logError(
+												"Unable to read response from radio modem.",
+												SerialDataManager.class);
+									}
+								}
+							}
+						});
+						t.start();
+						initRadio();
+
+					} catch (InterruptedException e) {
+						logger.logError("Unable to initialize radio modem.",
+								SerialDataManager.class);
+					}
+
+					readRadioResponse = false;
+				}
 				status = true;
 			} else {
 				logger.logError("Serial parameters not yet set.",
@@ -164,4 +209,29 @@ public class SerialDataManager extends AbstractXBladeCommunication {
 		return COMMAND_VALUE;
 	}
 
+	public void initRadio() throws IOException, InterruptedException {
+
+		byte ENTER_COMMAND_MODE[] = { 0x41, 0x54, 0x2B, 0x2B, 0x2B, 0x0D };
+		byte EXIT_COMMAND_MODE[] = { (byte) 0xCC, 0x41, 0x54, 0x4F, 0x0D };
+		byte SET_SERVER[] = { (byte) 0xCC, 0x03, 0x00 };
+		byte DESTINATION_ADDRESS[] = { (byte) 0xCC, 0x10, 0x28, 0x72, 0x39 };
+
+		oStream.write(ENTER_COMMAND_MODE);
+		oStream.flush();
+		TimeUnit.MILLISECONDS.sleep(100);
+
+		oStream.write(SET_SERVER);
+		oStream.flush();
+		TimeUnit.MILLISECONDS.sleep(100);
+
+		oStream.write(DESTINATION_ADDRESS);
+		oStream.flush();
+		TimeUnit.MILLISECONDS.sleep(100);
+
+		oStream.write(EXIT_COMMAND_MODE);
+		oStream.flush();
+		TimeUnit.MILLISECONDS.sleep(100);
+
+		TimeUnit.MILLISECONDS.sleep(500);
+	}
 }

@@ -47,13 +47,16 @@ public class SerialConnection {
 	private SerialPort serialPort = null;
 	private boolean parameterSet = false;
 
+	private boolean isRadio;
+
 	public void setParameters(int port, String string, int parity, int length,
-			int stop) {
+			int stop, boolean isRadio) {
 		this.port = port;
 		this.baud = string;
 		this.parity = parity;
 		this.length = length;
 		this.stop = stop;
+		this.isRadio = isRadio;
 
 		parameterSet = true;
 	}
@@ -213,4 +216,10 @@ public class SerialConnection {
 	public synchronized SerialPort getSerialPort() {
 		return serialPort;
 	}
+
+	public boolean isRadio() {
+		return isRadio;
+	}
+	
+	
 }

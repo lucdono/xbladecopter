@@ -27,6 +27,7 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -41,6 +42,8 @@ public class ConnectionDialog extends Dialog {
 	private Combo parity;
 	private Combo baud;
 	private Combo ports;
+
+	private Button isRadio;
 
 	public ConnectionDialog(Shell parentShell) {
 		super(parentShell);
@@ -96,8 +99,9 @@ public class ConnectionDialog extends Dialog {
 		stop.setItems(new String[] { "1", "2" });
 		stop.select(0);
 
-		new Label(comp, SWT.NONE);
-		new Label(comp, SWT.NONE);
+		isRadio = new Button(comp, SWT.CHECK);
+		isRadio.setText("Send AT commands");
+		isRadio.setToolTipText("Configure ACOMM 4868 module.");
 
 		return super.createContents(parent);
 	}
@@ -117,7 +121,7 @@ public class ConnectionDialog extends Dialog {
 			SerialConnection.getInstance().setParameters(
 					ports.getSelectionIndex(), baud.getText(),
 					parity.getSelectionIndex(), word.getSelectionIndex(),
-					stop.getSelectionIndex());
+					stop.getSelectionIndex(),isRadio.getSelection());
 			logger.logInfo("Serial paramters have been set", this.getClass());
 		} else
 			logger.logWarning("Serial paramenters not set.", this.getClass());
