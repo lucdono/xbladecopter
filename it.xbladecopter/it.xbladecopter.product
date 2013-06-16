@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="XBlade Control Panel" uid="it.xbladecopter.product" id="it.xbladecopter.product" application="it.xbladecopter.application" version="1.0.0.qualifier" useFeatures="false" includeLaunchers="true">
+<product name="XBlade Control Panel" uid="it.xbladecopter.product" id="it.xbladecopter.product" application="it.xbladecopter.application" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
       <image path="icons/splash.png"/>
@@ -884,6 +884,11 @@ Public License instead of this License.  But first, please read
       <plugin id="org.w3c.dom.smil"/>
       <plugin id="org.w3c.dom.svg"/>
    </plugins>
+
+   <features>
+      <feature id="it.xbladecopter.communication.feature" version="1.0.0.qualifier"/>
+      <feature id="it.xbladecopter.feature" version="1.0.0.qualifier"/>
+   </features>
 
 
 </product>

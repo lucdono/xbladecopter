@@ -82,6 +82,8 @@ public class Command extends ViewPart {
 	boolean running = true;
 	private Text throttleText;
 	private CommandThread commandThread;
+	private int prevX = 0;
+	private int prevY = 0;
 
 	/**
 	 * The ID of the view as specified by the extension.
@@ -301,10 +303,12 @@ public class Command extends ViewPart {
 				recordBtn.setSelection(TelemetryDataSingleton.getInstance()
 						.getLogEnabled());
 
-				logger.logInfo(
-						"Command data sent "
-								+ (enableBtn.getSelection() ? "enabled."
-										: "disabled."), this.getClass());
+				if (enableBtn.getSelection())
+					logger.logInfo("Command data sent enabled.",
+							this.getClass());
+				else
+					logger.logWarning("Command data sent disabled.",
+							this.getClass());
 			}
 		});
 		enableBtn.setImage(PlatformUI.getWorkbench().getSharedImages()
@@ -341,6 +345,8 @@ public class Command extends ViewPart {
 			@Override
 			public void mouseDown(MouseEvent e) {
 				enable = true;
+				prevX = e.x;
+				prevY = e.y;
 			}
 
 			@Override
@@ -358,8 +364,6 @@ public class Command extends ViewPart {
 
 		canvas.addMouseMoveListener(new MouseMoveListener() {
 
-			private int prevX = 0;
-			private int prevY = 0;
 			private float pitchAngleStep;
 			private float rollAngleStep;
 
@@ -370,16 +374,10 @@ public class Command extends ViewPart {
 					int maxRoll = Integer.valueOf(rollMax.getText());
 					int maxPitch = Integer.valueOf(pitchMax.getText());
 
-					/*
-					 * FIXME proportional
-					 */
-					if (prevX == 0)
-						prevX = e.x;
-					if (prevY == 0)
-						prevY = e.y;
+					// Calculate deltas and scale value
+					rollAngleStep = Math.abs(e.x - prevX) * 0.5f;
+					pitchAngleStep = Math.abs(e.y - prevY) * 1.5f;
 
-					rollAngleStep = Math.abs(prevX - e.x);
-					pitchAngleStep = Math.abs(prevY - e.y);
 					if (roll >= maxRoll) {
 						roll = maxRoll;
 					} else if (roll <= -maxRoll) {

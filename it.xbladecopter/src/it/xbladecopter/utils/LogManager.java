@@ -78,6 +78,12 @@ public class LogManager {
 		refresh(false, message, Status.INFO);
 	}
 
+	public void logDebug(String message, Class cls) {
+		message = message.concat(" [" + cls.getName() + "] ");
+		log.log(new Status(Status.INFO, id, message));
+		refresh(false, message, Status.INFO);
+	}
+
 	private void refresh(boolean isSserious, String message, int status) {
 		try {
 			switch (status) {

@@ -36,7 +36,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.part.ViewPart;
 
 /*
- * TODO IMPLEMENT: Camera (view, preferences, help)
+ * TODO IMPLEMENT: Camera move to a new plugin (view, preferences, help)
  */
 public class Camera extends ViewPart {
 	public static final String ID = "it.xbladecopter.camera";
